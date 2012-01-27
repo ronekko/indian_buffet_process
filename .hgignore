@@ -28,6 +28,9 @@ syntax: glob
 *.sbr
 *.scc
 *.sig
+*.lastbuildstate
+*_manifest.rc
+*vcxproj.filters
 _ReSharper*\*
 *\vc90.idb
 *\vc100.idb

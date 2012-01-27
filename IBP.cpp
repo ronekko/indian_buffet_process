@@ -13,12 +13,12 @@ IBP::~IBP(){}
 
 
 // N*K matrix: mat[n][k]
-std::vector<std::vector<float>> IBP::sample(void)
+std::vector<std::vector<unsigned char>> IBP::sample(void)
 {
 	using namespace std;
 	using namespace boost;
 
-	vector<vector<float>> mat(N);
+	vector<vector<unsigned char>> mat(N);
 	uniform_real<> uniformDistribution(0, 1);
 	variate_generator<mt19937&, uniform_real<>> uniform(engine, uniformDistribution);
 
@@ -46,7 +46,7 @@ std::vector<std::vector<float>> IBP::sample(void)
 		K += numNewDishes;
 	}
 	
-	vector<vector<float>> result(N);
+	vector<vector<unsigned char>> result(N);
 	for(int n=0; n<N; ++n){
 		result[n].resize(K, 0);
 		for(int k=0; k<mat[n].size(); ++k){

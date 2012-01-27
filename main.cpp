@@ -18,7 +18,7 @@
 
 
 template<typename T>
-cv::Mat upsample(const cv::Mat &src, const int &scale)
+cv::Mat naiveResample(const cv::Mat &src, const double &scale)
 {
 	using namespace cv;
 	int rows = src.rows * scale;
@@ -42,15 +42,19 @@ int main(void)
 	using namespace boost;
 
 	const int N = 200;
-	const double ALPHA = 30.0;
-	IBP ibp(N, ALPHA, static_cast<unsigned long>(time(0)));
+	const double ALPHA = 5.0;
+	const double BETA = 3.0;
+//	IBP ibp(N, ALPHA, static_cast<unsigned long>(time(0)));
+	IBP ibp(static_cast<unsigned long>(time(0)), N, ALPHA, BETA);
+
 	vector<vector<float>> mat = ibp.sample();
 
 	int K = mat[0].size();
 	cout << "K: " << K << endl;
 	double H_N = 0;
-	for(int n=1; n<=N; ++n){ H_N += 1.0/double(n);}
-	cout << "K ` Poisson(ƒ¿ƒ°(1/n)): ƒ¿ƒ°(1/n) = " << ALPHA * H_N << endl;
+	for(int n=1; n<=N; ++n){ H_N += BETA/double(n + BETA - 1);}
+//	cout << "K ` Poisson(ƒ¿ƒ°(1/n)): ƒ¿ƒ°(1/n) = " << ALPHA * H_N << endl; // 1-parameter IBP
+	cout << "K ` Poisson(ƒ¿ƒ°(1/n)): ƒ¿ƒ°(ƒÀ/(n+ƒÀ-1)) = " << ALPHA * H_N << endl; // 2-parameter IBP
 
 	cv::Mat result = cv::Mat::zeros(N, K, CV_32FC1);
 	for(int n=0; n<N; ++n){
@@ -59,8 +63,8 @@ int main(void)
 		}
 	}
 
-	//
-	cv::imshow("result", upsample<float>(result, 5));
+
+	cv::imshow("result", naiveResample<float>(result, 3));
 	cv::waitKey(0);
 
 	

@@ -5,7 +5,8 @@
 class IBP
 {
 public:
-	IBP(const int &N, const double &ALPHA, unsigned long seed, const double &BETA = 1.0);
+	// BETA‚ğÈ—ª‚µ‚½‚ç•’Ê‚ÌIBPABETA‚ğw’è‚µ‚½‚ç2-parameter IBP
+	IBP(unsigned long seed, const int &N, const double &ALPHA, const double &BETA = 1.0);
 	~IBP();
 	std::vector<std::vector<float>> sample(void);
 

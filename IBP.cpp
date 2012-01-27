@@ -1,9 +1,10 @@
+#pragma once;
 #include <vector>
 #include <boost/random.hpp>
 #include "IBP.h"
 
 
-IBP::IBP(const int &N, const double &ALPHA, unsigned long seed, const double &BETA) : N(N), ALPHA(ALPHA), BETA(BETA)
+IBP::IBP(unsigned long seed, const int &N, const double &ALPHA, const double &BETA) : N(N), ALPHA(ALPHA), BETA(BETA)
 {
 	engine.seed(seed);
 }
@@ -27,13 +28,13 @@ std::vector<std::vector<float>> IBP::sample(void)
 	{
 		mat[n-1].resize(K);
 		for(int k=0; k<K; ++k){
-			double pi = static_cast<double>(m[k]) / static_cast<double>(n);
+			double pi = static_cast<double>(m[k]) / static_cast<double>(n + BETA - 1);
 			int coinToss = (uniform() < pi) ? 1 : 0;
 			mat[n-1][k] = coinToss;
 			m[k] += coinToss;
 		}
 
-		poisson_distribution<> poissonDistribution( ALPHA / static_cast<double>(n));
+		poisson_distribution<> poissonDistribution( (ALPHA * BETA) / static_cast<double>(n + BETA - 1));
 		variate_generator<mt19937&, poisson_distribution<>> poisson(engine, poissonDistribution);
 		int numNewDishes = poisson();
 

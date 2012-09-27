@@ -4,10 +4,8 @@
 #include "IBP.h"
 
 
-IBP::IBP(unsigned long seed, const int &N, const double &ALPHA, const double &BETA) : N(N), ALPHA(ALPHA), BETA(BETA)
-{
-	engine.seed(seed);
-}
+IBP::IBP(boost::mt19937 &engine, const int &N, const double &ALPHA, const double &BETA) : engine(engine), N(N), ALPHA(ALPHA), BETA(BETA)
+{}
 
 IBP::~IBP(){}
 

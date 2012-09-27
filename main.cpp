@@ -79,7 +79,7 @@ int main(void)
 	using namespace boost;
 
 	const int N = 200;
-	const double ALPHA = 11.7;
+	const double ALPHA = 1.7;
 	const double BETA = 1.0;
 	boost::mt19937 engine(0);
 //	IBP ibp(N, ALPHA, static_cast<unsigned long>(time(0)));

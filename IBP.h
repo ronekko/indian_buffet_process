@@ -1,5 +1,6 @@
 #pragma once;
 #include <vector>
+#include <list>
 #include <boost/random.hpp>
 
 class IBP
@@ -10,9 +11,13 @@ public:
 	~IBP();
 	std::vector<std::vector<unsigned char>> sample(void);
 //	std::vector<std::vector<unsigned char>> lof(std::vector<std::vector<unsigned char>> mat); // left-ordered form
+	std::vector<std::vector<unsigned char>> list2vector(const std::list<std::vector<unsigned char>> &mat);
 
 	const int N;
 	const double ALPHA;
 	const double BETA;
 	boost::mt19937 engine;
+
+	std::list<std::vector<unsigned char>> mat;	
+	std::list<int> m;
 };

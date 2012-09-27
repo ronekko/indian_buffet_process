@@ -79,7 +79,7 @@ int main(void)
 	using namespace boost;
 
 	const int N = 200;
-	const double ALPHA = 1.7;
+	const double ALPHA = 11.7;
 	const double BETA = 1.0;
 	boost::mt19937 engine(0);
 //	IBP ibp(N, ALPHA, static_cast<unsigned long>(time(0)));
@@ -97,18 +97,18 @@ int main(void)
 		cout << "K: " << K << endl;
 	
 		cv::Mat result = cv::Mat::zeros(N, K, CV_32FC1);
-	//	vector<vector<unsigned char>> matLof = lof(mat);
-	//	cv::Mat resultLof = cv::Mat::zeros(N, K, CV_32FC1);
+		vector<vector<unsigned char>> matLof = lof(mat);
+		cv::Mat resultLof = cv::Mat::zeros(N, K, CV_32FC1);
 		for(int n=0; n<N; ++n){
 			for(int k=0; k<mat[n].size(); ++k){
 				result.at<float>(n, k) = mat[n][k];
-	//			resultLof.at<float>(n, k) = matLof[n][k];
+				resultLof.at<float>(n, k) = matLof[n][k];
 			}
 		}
 
 
 		cv::imshow("result", naiveResample<float>(result, 3));
-	//	cv::imshow("lof", naiveResample<float>(resultLof, 3));
+		cv::imshow("lof", naiveResample<float>(resultLof, 3));
 		cv::waitKey(0);
 	}
 	

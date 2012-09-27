@@ -17,8 +17,8 @@ std::vector<std::vector<unsigned char>> IBP::sample(void)
 	using namespace boost;
 
 	vector<vector<unsigned char>> mat(N);
-	uniform_real<> uniformDistribution(0, 1);
-	variate_generator<mt19937&, uniform_real<>> uniform(engine, uniformDistribution);
+	uniform_01<> uniform01;
+	variate_generator<mt19937&, uniform_01<>> uniform(engine, uniform01);
 
 	int K = 0;
 	vector<int> m;

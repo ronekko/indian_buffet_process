@@ -1,4 +1,3 @@
-#pragma once;
 #include <vector>
 #include <list>
 #include <boost/random.hpp>
